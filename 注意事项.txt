@@ -1,0 +1,3 @@
+# chmod 777 *
+python setup.py install --user
+gcovr -r .. -s | grep "[lfb][a-z]*:"
