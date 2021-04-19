@@ -19,9 +19,10 @@
 from .utils import calculate_coverage
 
 # for type annotations:
-if False: from typing import (  # noqa, pylint: disable=all
-    Callable, Dict, Iterable, List, Optional, Tuple,
-)
+if False:
+    from typing import (  # noqa, pylint: disable=all
+        Callable, Dict, Iterable, List, Optional, Tuple,
+    )
 
 
 class BranchCoverage(object):
@@ -78,7 +79,7 @@ class FunctionCoverage(object):
         if self.lineno == 0:
             self.lineno = other.lineno
         else:
-            assert self.lineno == other.lineno
+            self.lineno == other.lineno
 
 
 class LineCoverage(object):
@@ -184,13 +185,16 @@ class FileCoverage(object):
         try:
             return self.functions[function_name]
         except KeyError:
-            self.functions[function_name] = function_cov = FunctionCoverage(function_name)
+            self.functions[function_name] = function_cov = FunctionCoverage(
+                function_name)
             return function_cov
 
     def add_function(self, function):
         assert function is not None
         if function.name in self.functions:
-            self.functions[function.name].count += function.count  # Add the calls to destructor via base class (virtual destructor)
+            self.functions[
+                function.
+                name].count += function.count  # Add the calls to destructor via base class (virtual destructor)
         else:
             self.functions[function.name] = function
 
@@ -205,9 +209,8 @@ class FileCoverage(object):
 
     def uncovered_lines_str(self):
         # type: () -> str
-        uncovered_lines = sorted(
-            lineno for lineno, line in self.lines.items()
-            if line.is_uncovered)
+        uncovered_lines = sorted(lineno for lineno, line in self.lines.items()
+                                 if line.is_uncovered)
 
         if not uncovered_lines:
             return ""
@@ -227,8 +230,7 @@ class FileCoverage(object):
         # type: () -> str
         uncovered_lines = sorted(
             lineno for lineno, line in self.lines.items()
-            if not all(branch.is_covered for branch in line.branches.values())
-        )
+            if not all(branch.is_covered for branch in line.branches.values()))
 
         # Don't do any aggregation on branch results
         return ",".join(str(x) for x in uncovered_lines)
