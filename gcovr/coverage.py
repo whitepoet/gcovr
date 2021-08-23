@@ -79,7 +79,7 @@ class FunctionCoverage(object):
         if self.lineno == 0:
             self.lineno = other.lineno
         else:
-            self.lineno == other.lineno
+            assert self.lineno == other.lineno
 
 
 class LineCoverage(object):
